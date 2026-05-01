@@ -1,7 +1,9 @@
 import { logger } from "../logger.js";
 import { sleep } from "../utils/time.js";
+import { AaveSubgraphSource } from "./aaveSubgraph.js";
 import { ChainTailSource } from "./chainTail.js";
 import { FortaSource } from "./forta.js";
+import { PriceAnomalySource } from "./priceAnomaly.js";
 import { RektNewsSource } from "./rektNews.js";
 import type { EventSource, RawEvent } from "./types.js";
 
@@ -15,7 +17,13 @@ export class EventManager {
   private stopped = false;
 
   constructor(sources?: EventSource[]) {
-    this.sources = sources ?? [new RektNewsSource(), new FortaSource(), new ChainTailSource()];
+    this.sources = sources ?? [
+      new RektNewsSource(),
+      new FortaSource(),
+      new PriceAnomalySource(),
+      new AaveSubgraphSource(),
+      new ChainTailSource(),
+    ];
   }
 
   async runOnce(onEvent: (ev: RawEvent) => Promise<void> | void): Promise<number> {

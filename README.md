@@ -29,6 +29,8 @@ high-tier escalation review approve it.
 ┌─ Event sources ─────────────┐
 │ rekt.news RSS               │
 │ Forta GraphQL (HIGH/CRIT)   │
+│ Base price anomaly (UniV2)  │
+│ Aave V3 Base subgraph       │
 │ Base chain block tail       │
 └──────────────┬──────────────┘
                ▼
@@ -129,15 +131,13 @@ sudo bash deploy/setup-vps.sh
 
 ## What is intentionally NOT in this MVP
 
-- Live broadcasting adapters per strategy. The `Executor` will refuse to
+- **Live broadcasting adapters per strategy.** The `Executor` will refuse to
   send a real tx; flipping `ENABLE_LIVE_TRADING=true` only unlocks the
-  safety gates — adapter implementation is the next deliverable.
-- Indexer-backed liquidation candidate discovery (Aave subgraph poller).
-  The liquidation strategy currently expects candidates to be passed in
-  via the event payload.
-- Mempool subscription with `eth_subscribe` (only block-tail polling).
-- Persistent metrics / Prometheus exporter.
-- Telegram alert delivery (env vars are reserved; sender not yet wired).
+  safety gates — adapter implementation is the next deliverable. This is
+  intentional: a real swap/liquidation transaction builder needs targeted
+  unit tests + fork-simulation review before being trusted with live ETH.
+- **Mempool subscription with `eth_subscribe`** (only block-tail polling).
+- **Persistent metrics / Prometheus exporter.**
 
 These are the obvious next PRs if the framework is approved.
 

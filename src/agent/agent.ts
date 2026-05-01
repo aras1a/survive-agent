@@ -6,6 +6,7 @@ import { logger } from "../logger.js";
 import { StrategyRouter } from "../strategies/router.js";
 import { survival } from "../treasury/survival.js";
 import { treasury } from "../treasury/treasury.js";
+import { alertTelegram } from "../utils/alerter.js";
 import { sleep } from "../utils/time.js";
 import { triage } from "./triage.js";
 
@@ -75,6 +76,11 @@ export class Agent {
       try {
         const res = await executor.run(p);
         logger.info({ res }, "proposal handled");
+        await alertTelegram(
+          `[survive-agent] ${res.decision.toUpperCase()} ${res.strategy}\n` +
+            `${res.description}\n` +
+            `expected_profit_usd=${res.expectedProfitUsd} reason=${res.reason}`,
+        );
       } catch (err) {
         logger.error({ err, proposal: p.description }, "proposal execution error");
       }
