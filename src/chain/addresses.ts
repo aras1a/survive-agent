@@ -1,0 +1,30 @@
+/**
+ * Curated Base mainnet contract addresses we may interact with.
+ * Source: official protocol docs / Aave, Moonwell, Uniswap V3, Aerodrome.
+ * Verify before any live use.
+ */
+export const BASE_TOKENS = {
+  WETH: "0x4200000000000000000000000000000000000006",
+  USDC: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+  USDbC: "0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA",
+  cbETH: "0x2Ae3F1Ec7F1F5012CFEab0185bfc7aa3cf0DEc22",
+  AERO: "0x940181a94A35A4569E4529A3CDfB74e38FD98631",
+  USDT: "0xfde4C96c8593536E31F229EA8f37b2ADa2699bb2",
+} as const;
+
+export const AAVE_V3_BASE = {
+  /** Aave Pool address on Base mainnet */
+  POOL: "0xA238Dd80C259a72e81d7e4664a9801593F98d1c5",
+  POOL_DATA_PROVIDER: "0x2d8A3C5677189723C4cB8873CfC9C8976FDF38Ac",
+  PRICE_ORACLE: "0x2Cc0Fc26eD4563A5ce5e8bdcfe1A2878676Ae156",
+} as const;
+
+export const MOONWELL_BASE = {
+  COMPTROLLER: "0xfBb21d0380beE3312B33c4353c8936a0F13EF26C",
+} as const;
+
+export const UNISWAP_V2_FACTORY_BASE = "0x8909Dc15e40173Ff4699343b6eB8132c65e18eC6";
+export const AERODROME_FACTORY = "0x420DD381b31aEf6683db6B902084cB0FFECe40Da";
+export const UNISWAP_V3_FACTORY_BASE = "0x33128a8fC17869897dcE68Ed026d694621f6FDfD";
+
+export type TokenSymbol = keyof typeof BASE_TOKENS;

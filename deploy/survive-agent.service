@@ -1,0 +1,38 @@
+[Unit]
+Description=survive-agent (autonomous on-chain reactor)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=survive
+Group=survive
+WorkingDirectory=/home/survive/survive-agent
+EnvironmentFile=/home/survive/survive-agent/.env
+# Resolve node from the user's nvm install. Adjust if you change NODE_VERSION.
+ExecStart=/bin/bash -lc 'source $HOME/.nvm/nvm.sh && exec node --import tsx src/cli.ts agent'
+Restart=on-failure
+RestartSec=5s
+StandardOutput=journal
+StandardError=journal
+
+# Hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/home/survive/survive-agent/data
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+LockPersonality=true
+RestrictRealtime=true
+SystemCallArchitectures=native
+
+# Resource limits (Netcup ARM G11 has 8GB / 4 vCPU; leave headroom).
+MemoryMax=2G
+CPUQuota=200%
+
+[Install]
+WantedBy=multi-user.target

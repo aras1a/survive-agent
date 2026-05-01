@@ -1,0 +1,38 @@
+{
+  "name": "survive-agent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "AI agent that reacts to on-chain exploit/liquidation/distressed-asset events on Base. MIMO V2.5 primary + Anthropic escalation. Capital-preservation first. Dry-run by default.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "node --test --import tsx 'src/**/*.test.ts'",
+    "agent": "tsx src/cli.ts agent",
+    "agent:dry": "tsx src/cli.ts agent --dry-run",
+    "status": "tsx src/cli.ts status",
+    "event:test": "tsx src/cli.ts event-test",
+    "llm:ping": "tsx src/cli.ts llm-ping"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.1",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.13.4",
+    "openai": "^4.76.0",
+    "pino": "^9.5.0",
+    "pino-pretty": "^11.3.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@typescript-eslint/eslint-plugin": "^8.16.0",
+    "@typescript-eslint/parser": "^8.16.0",
+    "eslint": "^9.16.0"
+  }
+}
